@@ -21,9 +21,9 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={poppins.className}>
-        <div className='bg-gray flex h-screen w-screen gap-x-10 overflow-hidden'>
+        <div className='flex h-screen w-screen overflow-hidden bg-gray'>
           <Sidebar />
-          {children}
+          <div className='h-full w-full overflow-y-auto'>{children}</div>
         </div>
       </body>
     </html>

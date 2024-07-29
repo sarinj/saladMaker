@@ -34,13 +34,24 @@ const config = {
         },
         yellow: {
           DEFAULT: '#F8B602',
+          1: '#FFEA75',
         },
         blue: {
           DEFAULT: '#012738',
         },
+        green: {
+          DEFAULT: '#2FB62D',
+        },
+        red: {
+          DEFAULT: '#FF0000',
+          1: '#FF3F56',
+        },
         gray: {
           DEFAULT: '#F5F5F5',
           1: '#A098AE',
+        },
+        black: {
+          DEFAULT: '#2E2E2E',
         },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
