@@ -11,8 +11,6 @@ export default function ChooseIngredient() {
     removeIngredient,
   } = useSalad()
 
-  console.log(selectedIngredients)
-
   return (
     <div className='space-y-6'>
       <h3 className='heading-3'>Choose your ingredients to make a salad</h3>
