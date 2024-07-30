@@ -5,10 +5,47 @@ import { Button } from '../ui/button'
 import { cn } from '@/lib/utils'
 import { useState } from 'react'
 import CreateRecipeModal from './createRecipeModal'
+import { useMutation } from '@tanstack/react-query'
+import { useToast } from '../ui/use-toast'
 
 export default function ButtomMenu() {
-  const { totalQuantity, totalCalories } = useSalad()
+  const {
+    totalQuantity,
+    totalCalories,
+    selectedIngredients,
+    createRecipe,
+    clearSelectedIngredients,
+  } = useSalad()
   const [open, setOpen] = useState(false)
+  const { toast } = useToast()
+
+  function handleCreateRecipe(name: string) {
+    const recipe = {
+      name,
+      ingredients: selectedIngredients.map(ingredient => ({
+        id: ingredient.id,
+        quantity: ingredient.quantity,
+      })),
+      totalCalories,
+    }
+    mutate(recipe)
+  }
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: createRecipe,
+    onSuccess: () => {
+      toast({
+        title: 'Recipe has been created.',
+      })
+      clearSelectedIngredients()
+      setOpen(false)
+    },
+    onError: () => {
+      toast({
+        title: 'Failed to create recipe.',
+      })
+    },
+  })
 
   return (
     <div
@@ -37,9 +74,10 @@ export default function ButtomMenu() {
         </Button>
       </div>
       <CreateRecipeModal
+        isLoading={isPending}
         onOpenChange={setOpen}
         open={open}
-        onCreate={() => setOpen(false)}
+        onCreate={handleCreateRecipe}
       />
     </div>
   )

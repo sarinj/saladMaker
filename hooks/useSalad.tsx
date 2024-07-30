@@ -2,6 +2,7 @@
 
 import { createContext, ReactNode, useContext, useMemo, useState } from 'react'
 import { DUMMY } from './dummyData'
+import { request } from '@/lib/axiosClient'
 
 type Ingredient = {
   id: string
@@ -11,28 +12,36 @@ type Ingredient = {
   calories: number
 }
 
-type selectedIngredientType = {
+type SelectedIngredientType = {
   id: string
-  category: string
+  name: string
   calories: number
   quantity: number
 }
 
-type ingredientFilters = {
+type IngredientFiltersType = {
   search: string
   category: string[]
+}
+
+type NewRecipeType = {
+  name: string
+  ingredients: { id: string; quantity: number }[]
+  totalCalories: number
 }
 
 interface SaladContextType {
   allIngredients: Ingredient[]
   filteredIngredients: Ingredient[]
-  selectedIngredients: selectedIngredientType[]
+  selectedIngredients: SelectedIngredientType[]
   totalCalories: number
   totalQuantity: number
   addIngredient: (id: string) => void
   removeIngredient: (id: string) => void
-  filters: ingredientFilters
-  setIngredientFilters: (filters: ingredientFilters) => void
+  filters: IngredientFiltersType
+  setIngredientFilters: (filters: IngredientFiltersType) => void
+  createRecipe: (recipe: NewRecipeType) => Promise<void>
+  clearSelectedIngredients: () => void
 }
 
 const SaladContext = createContext<SaladContextType>({
@@ -45,13 +54,15 @@ const SaladContext = createContext<SaladContextType>({
   removeIngredient: () => {},
   filters: { search: '', category: [] },
   setIngredientFilters: () => {},
+  createRecipe: async () => {},
+  clearSelectedIngredients: () => {},
 })
 
 export function SaladProvider({ children }: { children: ReactNode }) {
   const [selectedIngredients, setSelectedIngredients] = useState<
-    selectedIngredientType[]
+    SelectedIngredientType[]
   >([])
-  const [filters, setFilters] = useState<ingredientFilters>({
+  const [filters, setFilters] = useState<IngredientFiltersType>({
     search: '',
     category: [],
   })
@@ -82,9 +93,15 @@ export function SaladProvider({ children }: { children: ReactNode }) {
       )
 
       if (newIngredient) {
+        const temp: SelectedIngredientType = {
+          id: newIngredient.id,
+          name: newIngredient.ingredient,
+          quantity: 1,
+          calories: newIngredient.calories,
+        }
         setSelectedIngredients([
           ...selectedIngredients,
-          { ...newIngredient, quantity: 1 },
+          { ...temp, quantity: 1 },
         ])
       }
     }
@@ -117,8 +134,17 @@ export function SaladProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  function setIngredientFilters(filters: ingredientFilters) {
+  function setIngredientFilters(filters: IngredientFiltersType) {
     setFilters(filters)
+  }
+
+  function clearSelectedIngredients() {
+    setSelectedIngredients([])
+  }
+
+  async function createRecipe(recipe: NewRecipeType) {
+    const resp = await request.post('/recipes', recipe)
+    return resp.data
   }
 
   const totalCalories = useMemo(
@@ -162,6 +188,8 @@ export function SaladProvider({ children }: { children: ReactNode }) {
     addIngredient,
     removeIngredient,
     setIngredientFilters,
+    clearSelectedIngredients,
+    createRecipe,
   }
 
   return <SaladContext.Provider value={value}>{children}</SaladContext.Provider>

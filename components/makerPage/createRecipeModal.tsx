@@ -10,12 +10,14 @@ import { useEffect } from 'react'
 
 interface CreateRecipeModalProps {
   open: boolean
+  isLoading?: boolean
   onOpenChange: (open: boolean) => void
   onCreate: (name: string) => void
 }
 
 export default function CreateRecipeModal({
   open,
+  isLoading = false,
   onOpenChange,
   onCreate,
 }: CreateRecipeModalProps) {
@@ -74,6 +76,7 @@ export default function CreateRecipeModal({
                 Cancel
               </Button>
               <Button
+                isLoading={isLoading}
                 type='submit'
                 variant='green'
                 className='h-12 text-[16px]'
