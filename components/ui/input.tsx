@@ -20,7 +20,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {icon && <div>{icon}</div>}
         <input
           type={type}
-          className={cn('size-full', inputClassName)}
+          className={cn('size-full border-none outline-none', inputClassName)}
           ref={ref}
           {...props}
         />
