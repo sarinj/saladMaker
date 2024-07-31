@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import './globals.css'
 import Sidebar from '@/components/navigation/sidebar'
+import Providers from './provider'
 
 const poppins = Poppins({
   weight: ['400', '500', '700'],
@@ -21,10 +22,12 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={poppins.className}>
-        <div className='bg-gray flex h-screen w-screen gap-x-10 overflow-hidden'>
-          <Sidebar />
-          {children}
-        </div>
+        <Providers>
+          <div className='flex h-screen w-screen overflow-hidden bg-gray'>
+            <Sidebar />
+            <div className='h-full w-full overflow-y-auto'>{children}</div>
+          </div>
+        </Providers>
       </body>
     </html>
   )

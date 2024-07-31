@@ -2,6 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
 
+  images: {
+    remotePatterns: [{ protocol: 'https', hostname: 's3-alpha-sig.figma.com' }],
+  },
+
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
