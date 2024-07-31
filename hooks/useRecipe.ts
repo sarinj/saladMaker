@@ -2,6 +2,9 @@ import { request } from '@/lib/axiosClient'
 
 type Ingredient = {
   id: string
+  name: string
+  image: string
+  calories: number
   quantity: number
 }
 
@@ -27,8 +30,16 @@ export function useRecipe() {
     return resp.data
   }
 
-  async function updateRecipe(id: string, ingredients: Ingredient[]) {
-    const resp = await request.put(`api/recipes/${id}`, ingredients)
+  async function updateRecipe(
+    id: string,
+    ingredients: Ingredient[],
+    totalCalories: number
+  ) {
+    const temp = {
+      ingredients,
+      totalCalories,
+    }
+    const resp = await request.patch(`api/recipes/${id}`, temp)
     return resp.data
   }
 

@@ -25,6 +25,9 @@ export default function ButtomMenu() {
       name,
       ingredients: selectedIngredients.map(ingredient => ({
         id: ingredient.id,
+        name: ingredient.name,
+        image: ingredient.image,
+        calories: ingredient.calories,
         quantity: ingredient.quantity,
       })),
       totalCalories,

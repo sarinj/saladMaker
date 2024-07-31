@@ -15,6 +15,7 @@ type Ingredient = {
 type SelectedIngredientType = {
   id: string
   name: string
+  image: string
   calories: number
   quantity: number
 }
@@ -103,6 +104,7 @@ export function SaladProvider({ children }: { children: ReactNode }) {
       if (newIngredient) {
         const temp: SelectedIngredientType = {
           id: newIngredient.id,
+          image: newIngredient.image,
           name: newIngredient.ingredient,
           quantity: 1,
           calories: newIngredient.calories,

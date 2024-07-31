@@ -18,7 +18,7 @@ export default function ChooseIngredient() {
       {isLoadingIngredients ? (
         'Loading...'
       ) : (
-        <div className='flex min-h-[724px] flex-wrap gap-6'>
+        <div className='flex-start flex min-h-[724px] flex-wrap gap-6'>
           {ingredients?.map(ing => (
             <IngredientCard
               key={ing.id}

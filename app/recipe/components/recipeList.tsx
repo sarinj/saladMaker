@@ -15,8 +15,6 @@ export default function RecipeList() {
 
   const recipes: Recipe[] = useMemo(() => data?.recipes, [data?.recipes])
 
-  console.log(recipes)
-
   return (
     <div className='flex flex-wrap gap-6'>
       {isLoading ? (
