@@ -7,17 +7,18 @@ import { useState } from 'react'
 import CreateRecipeModal from './createRecipeModal'
 import { useMutation } from '@tanstack/react-query'
 import { useToast } from '../ui/use-toast'
+import { useRecipe } from '@/hooks/useRecipe'
 
 export default function ButtomMenu() {
   const {
     totalQuantity,
     totalCalories,
     selectedIngredients,
-    createRecipe,
     clearSelectedIngredients,
   } = useSalad()
   const [open, setOpen] = useState(false)
   const { toast } = useToast()
+  const { createRecipe } = useRecipe()
 
   function handleCreateRecipe(name: string) {
     const recipe = {
@@ -28,7 +29,6 @@ export default function ButtomMenu() {
       })),
       totalCalories,
     }
-    console.log(recipe)
     mutate(recipe)
   }
 

@@ -16,13 +16,14 @@ export default function SideBarMenuItem({
   className?: string
 }) {
   const currentPath = usePathname()
+  const isCurrent = currentPath.split('/')[1] === href.split('/')[1]
 
   return (
     <Link
       href={href}
       className={cn(
-        'text-gray-1 flex h-[64px] w-[252px] items-center gap-x-6 rounded-[16px] px-6 py-4 text-[18px] font-medium',
-        { 'bg-yellow text-white': href === currentPath },
+        'flex h-[64px] w-[252px] items-center gap-x-6 rounded-[16px] px-6 py-4 text-[18px] font-medium text-gray-1',
+        { 'bg-yellow text-white': isCurrent },
         className
       )}
     >

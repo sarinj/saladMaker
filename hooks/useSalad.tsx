@@ -24,12 +24,6 @@ type IngredientFiltersType = {
   category: string[]
 }
 
-type NewRecipeType = {
-  name: string
-  ingredients: { id: string; quantity: number }[]
-  totalCalories: number
-}
-
 interface SaladContextType {
   ingredients: Ingredient[]
   selectedIngredients: SelectedIngredientType[]
@@ -40,7 +34,6 @@ interface SaladContextType {
   removeIngredient: (id: string) => void
   filters: IngredientFiltersType
   setIngredientFilters: (filters: IngredientFiltersType) => void
-  createRecipe: (recipe: NewRecipeType) => Promise<void>
   clearSelectedIngredients: () => void
 }
 
@@ -54,7 +47,6 @@ const SaladContext = createContext<SaladContextType>({
   removeIngredient: () => {},
   filters: { search: '', category: [] },
   setIngredientFilters: () => {},
-  createRecipe: async () => {},
   clearSelectedIngredients: () => {},
 })
 
@@ -158,11 +150,6 @@ export function SaladProvider({ children }: { children: ReactNode }) {
     setSelectedIngredients([])
   }
 
-  async function createRecipe(recipe: NewRecipeType) {
-    const resp = await request.post('api/recipes', recipe)
-    return resp.data
-  }
-
   const totalCalories = useMemo(
     () =>
       selectedIngredients.reduce(
@@ -192,7 +179,6 @@ export function SaladProvider({ children }: { children: ReactNode }) {
     removeIngredient,
     setIngredientFilters,
     clearSelectedIngredients,
-    createRecipe,
   }
 
   return <SaladContext.Provider value={value}>{children}</SaladContext.Provider>
