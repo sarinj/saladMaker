@@ -28,6 +28,7 @@ export default function ButtomMenu() {
       })),
       totalCalories,
     }
+    console.log(recipe)
     mutate(recipe)
   }
 

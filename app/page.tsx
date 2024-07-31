@@ -23,7 +23,7 @@ function SaladMaker() {
         <SearchIngredient />
       </div>
       <div className='mt-8 space-y-[40px]'>
-        <div className='bg-yellow-1 h-[240px] gap-4 rounded-[16px] px-12 pb-[37px] pt-[43px] text-blue'>
+        <div className='h-[240px] gap-4 rounded-[16px] bg-yellow-1 px-12 pb-[37px] pt-[43px] text-blue'>
           <h2 className='max-w-[203px] heading-2'>Fresh & tasty salads</h2>
           <p className='text-sm leading-6'>
             Relax please, we&#39;ve got you <br /> covered every day of the week

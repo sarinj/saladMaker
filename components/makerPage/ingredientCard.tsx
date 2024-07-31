@@ -21,26 +21,26 @@ export default function IngredientCard({
   onRemove,
 }: IngredientCardProps) {
   return (
-    <div className='flex h-[363px] w-[344px] flex-col gap-6 rounded-[16px] bg-white px-6 py-8'>
+    <div className='h-[363px] w-[344px] rounded-[16px] bg-white px-6 py-8'>
       <Image src={image} width={296} height={180} alt='ingredient' />
-      <div className='heading-3'>
-        <p>{label}</p>
+      <div className='mt-6 heading-3'>
+        <p className='text-[18px] font-medium leading-[27px]'>{label}</p>
         <p>
           {calories} <span className='text-yellow'>Cal</span>
         </p>
-      </div>
-      <div className='flex items-center justify-end gap-4'>
-        {quantity > 0 && (
-          <>
-            <Button onClick={onRemove} size='icon' variant='yellow'>
-              <MinusIcon width='16' height='16' />
-            </Button>
-            <p className='justify-center heading-3'>{quantity}</p>
-          </>
-        )}
-        <Button onClick={onAdd} size='icon' variant='yellow'>
-          <PlusIcon width='16' height='16' />
-        </Button>
+        <div className='flex items-center justify-end gap-4'>
+          {quantity > 0 && (
+            <>
+              <Button onClick={onRemove} size='icon' variant='yellow'>
+                <MinusIcon width='16' height='16' />
+              </Button>
+              <p className='justify-center heading-3'>{quantity}</p>
+            </>
+          )}
+          <Button onClick={onAdd} size='icon' variant='yellow'>
+            <PlusIcon width='16' height='16' />
+          </Button>
+        </div>
       </div>
     </div>
   )

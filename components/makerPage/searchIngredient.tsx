@@ -17,7 +17,7 @@ export default function SearchIngredient() {
       onChange={e => {
         debounce(() => {
           setIngredientFilters({ ...filters, search: e.target.value })
-        }, 300)
+        }, 500)
       }}
       icon={<SearchIcon />}
     />

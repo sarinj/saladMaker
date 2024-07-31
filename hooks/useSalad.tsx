@@ -1,8 +1,8 @@
 'use client'
 
 import { createContext, ReactNode, useContext, useMemo, useState } from 'react'
-import { DUMMY } from './dummyData'
 import { request } from '@/lib/axiosClient'
+import { useQuery } from '@tanstack/react-query'
 
 type Ingredient = {
   id: string
@@ -31,11 +31,11 @@ type NewRecipeType = {
 }
 
 interface SaladContextType {
-  allIngredients: Ingredient[]
-  filteredIngredients: Ingredient[]
+  ingredients: Ingredient[]
   selectedIngredients: SelectedIngredientType[]
   totalCalories: number
   totalQuantity: number
+  isLoadingIngredients: boolean
   addIngredient: (id: string) => void
   removeIngredient: (id: string) => void
   filters: IngredientFiltersType
@@ -45,11 +45,11 @@ interface SaladContextType {
 }
 
 const SaladContext = createContext<SaladContextType>({
-  allIngredients: [],
-  filteredIngredients: [],
+  ingredients: [],
   selectedIngredients: [],
   totalCalories: 0,
   totalQuantity: 0,
+  isLoadingIngredients: false,
   addIngredient: () => {},
   removeIngredient: () => {},
   filters: { search: '', category: [] },
@@ -67,9 +67,27 @@ export function SaladProvider({ children }: { children: ReactNode }) {
     category: [],
   })
 
-  const allIngredients: Ingredient[] = useMemo(() => {
-    return DUMMY
-  }, [])
+  const { data: ingredientsData, isLoading: isLoadingIngredients } = useQuery({
+    queryKey: ['ingredients', filters],
+    queryFn: async () => {
+      const resp = await request.get('/api/ingredients', { params: filters })
+      return resp.data
+    },
+  })
+
+  const ingredients: Ingredient[] = useMemo(() => {
+    const temp =
+      ingredientsData?.ingredients?.map((ingredient: any) => {
+        return {
+          id: ingredient._id,
+          ingredient: ingredient.ingredient,
+          category: ingredient.category,
+          image: ingredient.image ?? '',
+          calories: ingredient.calories,
+        }
+      }) ?? []
+    return temp
+  }, [ingredientsData])
 
   function addIngredient(id: string) {
     const ingredient = selectedIngredients.find(
@@ -88,9 +106,7 @@ export function SaladProvider({ children }: { children: ReactNode }) {
         )
       )
     } else {
-      const newIngredient = allIngredients.find(
-        ingredient => ingredient.id === id
-      )
+      const newIngredient = ingredients.find(ingredient => ingredient.id === id)
 
       if (newIngredient) {
         const temp: SelectedIngredientType = {
@@ -143,7 +159,7 @@ export function SaladProvider({ children }: { children: ReactNode }) {
   }
 
   async function createRecipe(recipe: NewRecipeType) {
-    const resp = await request.post('/recipes', recipe)
+    const resp = await request.post('api/recipes', recipe)
     return resp.data
   }
 
@@ -165,26 +181,13 @@ export function SaladProvider({ children }: { children: ReactNode }) {
     [selectedIngredients]
   )
 
-  const filteredIngredients = useMemo(() => {
-    return allIngredients.filter(ingredient => {
-      const searchMatch = ingredient.ingredient
-        .toLowerCase()
-        .includes(filters.search.toLowerCase())
-      const categoryMatch =
-        filters.category.length === 0 ||
-        filters.category.includes(ingredient.category)
-
-      return searchMatch && categoryMatch
-    })
-  }, [allIngredients, filters])
-
   const value = {
-    allIngredients,
+    ingredients,
     filters,
-    filteredIngredients,
     selectedIngredients,
     totalCalories,
     totalQuantity,
+    isLoadingIngredients,
     addIngredient,
     removeIngredient,
     setIngredientFilters,
