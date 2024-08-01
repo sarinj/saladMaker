@@ -2,6 +2,12 @@
 
 setup `.env` file then
 
+install all dependencies:
+
+```bash
+npm install
+```
+
 run the development server:
 
 ```bash
