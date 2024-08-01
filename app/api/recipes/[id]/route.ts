@@ -1,6 +1,7 @@
 import connectMongoDB from '@/lib/mongodb'
 import Recipe from '@/models/recipe'
 import { HttpStatusCode } from 'axios'
+import { Types } from 'mongoose'
 import { NextRequest, NextResponse } from 'next/server'
 
 type Params = {
@@ -44,6 +45,13 @@ export async function GET(req: NextRequest, context: { params: Params }) {
       )
     }
 
+    if (!Types.ObjectId.isValid(id)) {
+      return NextResponse.json(
+        { message: 'Invalid Recipe ID' },
+        { status: HttpStatusCode.BadRequest }
+      )
+    }
+
     await connectMongoDB()
     const recipe = await Recipe.findById(id)
 
@@ -76,20 +84,29 @@ export async function PATCH(req: NextRequest, context: { params: Params }) {
       )
     }
 
-    if (!ingredients || !totalCalories) {
+    if (!Types.ObjectId.isValid(id)) {
       return NextResponse.json(
-        { message: 'Ingredients and total calories are required' },
+        { message: 'Invalid Recipe ID' },
         { status: HttpStatusCode.BadRequest }
       )
     }
 
     await connectMongoDB()
+
+    const isExist = await Recipe.findById(id)
+
+    if (!isExist) {
+      return NextResponse.json(
+        { message: 'Recipe not found' },
+        { status: HttpStatusCode.NotFound }
+      )
+    }
+
     const recipe = await Recipe.findByIdAndUpdate(
       id,
       { ingredients, totalCalories },
       { new: true }
     )
-
     return NextResponse.json({ recipe }, { status: HttpStatusCode.Ok })
   } catch (e: any) {
     return NextResponse.json(
