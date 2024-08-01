@@ -16,8 +16,8 @@ export default function SaladMakerPage() {
 function SaladMaker() {
   return (
     <div className='px-10 py-12'>
-      <div className='flex items-center justify-between'>
-        <h1 className='heading-1 lg:heading-2'>
+      <div className='flex flex-col items-center justify-between gap-4 lg:flex-row'>
+        <h1 className='heading-2 lg:heading-1'>
           Let&#39;s Create...your own salad!!!
         </h1>
         <SearchIngredient />

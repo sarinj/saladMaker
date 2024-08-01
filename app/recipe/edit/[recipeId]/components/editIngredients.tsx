@@ -75,6 +75,48 @@ export default function EditIngredients({ recipeId }: { recipeId: string }) {
     })
   }
 
+  function handleIncreaseIngredient(id: string) {
+    return () => {
+      setRecipe(prev => {
+        if (!prev) return null
+
+        return {
+          ...prev,
+          ingredients: prev.ingredients.map(ing => {
+            if (ing.id === id) {
+              return {
+                ...ing,
+                quantity: ing.quantity + 1,
+              }
+            }
+            return ing
+          }),
+        }
+      })
+    }
+  }
+
+  function handleDecreaseIngredient(id: string) {
+    return () => {
+      setRecipe(prev => {
+        if (!prev) return null
+
+        return {
+          ...prev,
+          ingredients: prev.ingredients.map(ing => {
+            if (ing.id === id) {
+              return {
+                ...ing,
+                quantity: Math.max(1, ing.quantity - 1),
+              }
+            }
+            return ing
+          }),
+        }
+      })
+    }
+  }
+
   function handleUpdate() {
     const temp = {
       ingredients: recipe?.ingredients,
@@ -92,10 +134,12 @@ export default function EditIngredients({ recipeId }: { recipeId: string }) {
             key={ing.id}
             {...ing}
             onDelete={() => handleDeleteIngredient(ing.id)}
+            onIncrese={handleIncreaseIngredient(ing.id)}
+            onDecrease={handleDecreaseIngredient(ing.id)}
           />
         ))}
       </div>
-      <div className='border-gray-2 border-x-0 border-b-0 border-t' />
+      <div className='border-x-0 border-b-0 border-t border-gray-2' />
       <div className='flex items-center justify-between'>
         <p className='text-[18px] font-medium leading-[27px]'>Total Calorie</p>
         <p className='text-[24px] font-medium leading-[36px]'>
