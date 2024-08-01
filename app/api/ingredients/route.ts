@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
 
     const ingredients = await Ingredient.find(query)
 
-    return NextResponse.json({ ingredients })
+    return NextResponse.json({ ingredients }, { status: HttpStatusCode.Ok })
   } catch (e: any) {
     return NextResponse.json(
       { message: e.message },
