@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { Button } from '../ui/button'
 import MinusIcon from '../icons/minusIcon'
 import PlusIcon from '../icons/plusIcon'
+import { checkImage } from '@/lib/utils'
 
 interface IngredientCardProps {
   image: string
@@ -23,7 +24,7 @@ export default function IngredientCard({
   return (
     <div className='h-[363px] w-[344px] rounded-[16px] bg-white px-6 py-8'>
       <Image
-        src={image}
+        src={checkImage(image)}
         width={296}
         height={180}
         alt='ingredient'

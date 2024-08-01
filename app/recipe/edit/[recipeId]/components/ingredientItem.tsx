@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button'
+import { checkImage } from '@/lib/utils'
 import Image from 'next/image'
 
 interface IngredientItemProps {
@@ -24,7 +25,7 @@ export default function IngredientItem({
   return (
     <div className='flex gap-6'>
       <Image
-        src={image}
+        src={checkImage(image)}
         width={80}
         height={80}
         alt='ingredient'

@@ -3,7 +3,10 @@ const nextConfig = {
   reactStrictMode: true,
 
   images: {
-    remotePatterns: [{ protocol: 'https', hostname: 's3-alpha-sig.figma.com' }],
+    remotePatterns: [
+      { protocol: 'https', hostname: 's3-alpha-sig.figma.com' },
+      { protocol: 'https', hostname: 'placehold.co' },
+    ],
   },
 
   webpack(config) {
