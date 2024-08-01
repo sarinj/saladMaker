@@ -47,8 +47,10 @@ export default function CreateRecipeModal({
       <DialogContent className='min-w-[500px]'>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleConfirm)}>
-            <div className='flex flex-col items-center px-10 py-6'>
-              <MakerIcon className='text-yellow' width='72' height='72' />
+            <div className='flex flex-col items-center gap-4 px-10 py-6'>
+              <div className='flex size-[72px] items-center justify-center rounded-full bg-yellow'>
+                <MakerIcon className='text-white' width='40' height='40' />
+              </div>
               <p className='text-[28px] font-bold'>Recipe Name</p>
               <FormField
                 control={form.control}

@@ -13,7 +13,7 @@ export default function RecipeList() {
     queryFn: getRecipes,
   })
 
-  const recipes: Recipe[] = useMemo(() => data?.recipes, [data?.recipes])
+  const recipes: Recipe[] = useMemo(() => data?.recipes ?? [], [data?.recipes])
 
   return (
     <div className='flex flex-wrap gap-6'>

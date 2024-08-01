@@ -22,13 +22,13 @@ export default function SideBarMenuItem({
     <Link
       href={href}
       className={cn(
-        'flex h-[64px] w-[252px] items-center gap-x-6 rounded-[16px] px-6 py-4 text-[18px] font-medium text-gray-1',
+        'flex h-[64px] w-fit items-center gap-x-6 rounded-[16px] px-6 py-4 text-[18px] font-medium text-gray-1 lg:w-[252px]',
         { 'bg-yellow text-white': isCurrent },
         className
       )}
     >
       {icon}
-      {title}
+      <p className='hidden lg:flex'>{title}</p>
     </Link>
   )
 }

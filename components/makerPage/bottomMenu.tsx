@@ -57,12 +57,12 @@ export default function ButtomMenu() {
         hidden: totalQuantity === 0,
       })}
     >
-      <div className='flex w-full items-center justify-between rounded-[16px] bg-yellow px-8 py-4 text-white'>
-        <div className='flex items-center space-x-4 text-[32px] font-bold leading-[48px]'>
+      <div className='flex w-full items-center justify-between gap-4 rounded-[16px] bg-yellow px-8 py-4 text-white'>
+        <div className='flex items-center space-x-4 text-[24px] font-bold leading-[48px] lg:text-[32px]'>
           <p className='rounded-[16px] bg-white px-6 py-2 text-yellow'>
             {totalQuantity}
           </p>
-          <p>Your Ingredients</p>
+          <p className='hidden lg:block'>Your Ingredients</p>
         </div>
         <p className='text-[32px] font-bold leading-[48px]'>
           {totalCalories} Cal
@@ -71,7 +71,7 @@ export default function ButtomMenu() {
       <div>
         <Button
           onClick={() => setOpen(true)}
-          className='h-full rounded-[16px] px-8 py-4 text-[32px] font-bold leading-[48px]'
+          className='h-full rounded-[16px] px-8 py-4 text-[24px] font-bold leading-[48px] lg:text-[32px]'
           variant='green'
         >
           Create Recipe
