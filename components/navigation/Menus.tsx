@@ -6,7 +6,7 @@ export const Menus: MenuItem[] = [
   {
     title: 'Salad Maker',
     href: '/',
-    icon: <MakerIcon width='25' height='25' />,
+    icon: <MakerIcon width='28' height='28' />,
   },
   {
     title: 'Recipe',

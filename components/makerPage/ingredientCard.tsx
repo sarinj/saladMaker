@@ -22,7 +22,13 @@ export default function IngredientCard({
 }: IngredientCardProps) {
   return (
     <div className='h-[363px] w-[344px] rounded-[16px] bg-white px-6 py-8'>
-      <Image src={image} width={296} height={180} alt='ingredient' />
+      <Image
+        src={image}
+        width={296}
+        height={180}
+        alt='ingredient'
+        className='h-[180px] w-[296px] object-cover'
+      />
       <div className='mt-6 heading-3'>
         <p className='text-[18px] font-medium leading-[27px]'>{label}</p>
         <p>
