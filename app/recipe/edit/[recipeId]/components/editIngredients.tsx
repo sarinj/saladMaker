@@ -28,7 +28,7 @@ export default function EditIngredients({ recipeId }: { recipeId: string }) {
   const { toast } = useToast()
   const router = useRouter()
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['recipe', recipeId],
     queryFn: () => getRecipe(recipeId),
     enabled: !!recipeId,
@@ -129,15 +129,19 @@ export default function EditIngredients({ recipeId }: { recipeId: string }) {
     <>
       <h3 className='heading-3'>Your ingredients to make a salad Recipe</h3>
       <div className='space-y-4'>
-        {recipe?.ingredients.map(ing => (
-          <IngredientItem
-            key={ing.id}
-            {...ing}
-            onDelete={() => handleDeleteIngredient(ing.id)}
-            onIncrese={handleIncreaseIngredient(ing.id)}
-            onDecrease={handleDecreaseIngredient(ing.id)}
-          />
-        ))}
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : (
+          recipe?.ingredients.map(ing => (
+            <IngredientItem
+              key={ing.id}
+              {...ing}
+              onDelete={() => handleDeleteIngredient(ing.id)}
+              onIncrese={handleIncreaseIngredient(ing.id)}
+              onDecrease={handleDecreaseIngredient(ing.id)}
+            />
+          ))
+        )}
       </div>
       <div className='border-x-0 border-b-0 border-t border-gray-2' />
       <div className='flex items-center justify-between'>

@@ -19,6 +19,8 @@ export default function RecipeList() {
     <div className='flex flex-wrap gap-6'>
       {isLoading ? (
         <p>Loading...</p>
+      ) : recipes.length === 0 ? (
+        <p>No recipes found.</p>
       ) : (
         recipes.map(recipe => <RecipeCard key={recipe.id} {...recipe} />)
       )}

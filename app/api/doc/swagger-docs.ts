@@ -130,7 +130,7 @@
  *                     calories:
  *                       type: number
  *                     quantity:
- *                       type: string
+ *                       type: number
  *               totalCalories:
  *                 type: number
  *     responses:
