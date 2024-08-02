@@ -3,6 +3,7 @@ import ChooseIngredient from '@/components/makerPage/chooseIngredient'
 import SearchIngredient from '@/components/makerPage/searchIngredient'
 import SelectCategories from '@/components/makerPage/selectCategories'
 import { SaladProvider } from '@/hooks/useSalad'
+import Image from 'next/image'
 
 export default function SaladMakerPage() {
   return (
@@ -23,11 +24,29 @@ function SaladMaker() {
         <SearchIngredient />
       </div>
       <div className='mt-8 space-y-[40px]'>
-        <div className='h-[240px] gap-4 rounded-[16px] bg-yellow-1 px-12 pb-[37px] pt-[43px] text-blue'>
-          <h2 className='max-w-[203px] heading-2'>Fresh & tasty salads</h2>
-          <p className='text-sm leading-6'>
+        <div className='relative h-[240px] gap-4 overflow-hidden rounded-[16px] bg-yellow-1 px-12 pb-[37px] pt-[43px] text-blue'>
+          <h2 className='relative z-10 max-w-[203px] heading-2'>
+            Fresh & tasty salads
+          </h2>
+          <p className='relative z-10 text-sm leading-6'>
             Relax please, we&#39;ve got you <br /> covered every day of the week
           </p>
+          <div className='absolute -left-[34px] bottom-[-184px] size-[285px] rounded-full border-[48px] border-white opacity-25' />
+          <div className='absolute left-[343px] top-[-166px] size-[285px] rounded-full border-[48px] border-white opacity-25' />
+          <Image
+            className='absolute left-[537px] top-[50px] rotate-[-127deg]'
+            width={479}
+            height={478}
+            src='/salad-1.png'
+            alt='salad'
+          />
+          <Image
+            className='absolute bottom-0 left-[1000px]'
+            width={451}
+            height={439}
+            src='/salad-2.png'
+            alt='salad'
+          />
         </div>
         <SelectCategories />
         <ChooseIngredient />

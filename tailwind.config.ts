@@ -41,10 +41,12 @@ const config = {
         },
         green: {
           DEFAULT: '#2FB62D',
+          1: '#A6C44A',
         },
         red: {
           DEFAULT: '#FF0000',
           1: '#FF3F56',
+          2: '#EB5757',
         },
         gray: {
           DEFAULT: '#F5F5F5',
